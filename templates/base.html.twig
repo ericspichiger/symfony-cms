@@ -1,0 +1,21 @@
+{% extends "layouts/layout-tow-columns.html.twig" %}
+
+{% block content %}
+	{% block page_header_container %}
+		<div class="page-header">
+			{% block page_header %}{% endblock %}
+		</div>
+	{% endblock %}
+
+	{% block page_content_container %}
+		<div class="page-content">
+			{% block page_content %}{% endblock %}
+		</div>
+	{% endblock %}
+
+	{% block page_footer_container %}
+		<div class="page-footer">
+			{% block page_footer %}{% endblock %}
+		</div>
+	{% endblock %}
+{% endblock %}

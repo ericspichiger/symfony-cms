@@ -7,6 +7,7 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
+ARG NODE_VERSION=16
 
 # Prod image
 FROM php:${PHP_VERSION}-fpm-alpine AS app_php
@@ -45,6 +46,12 @@ RUN set -eux; \
     ;
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
+	docker-php-ext-install -j$(nproc) pdo_pgsql; \
+	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
+	apk del .pgsql-deps
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -104,8 +111,8 @@ RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
-RUN set -eux; \
-	install-php-extensions xdebug
+#RUN set -eux; \
+#	install-php-extensions xdebug
 
 RUN rm -f .env.local.php
 
@@ -126,3 +133,12 @@ WORKDIR /srv/app
 COPY --from=app_caddy_builder --link /usr/bin/caddy /usr/bin/caddy
 COPY --from=app_php --link /srv/app/public public/
 COPY --link docker/caddy/Caddyfile /etc/caddy/Caddyfile
+
+# Node image
+FROM node:${NODE_VERSION}-alpine AS app_node
+
+WORKDIR /app
+
+COPY --link package.json /app/package.json
+
+RUN yarn install
