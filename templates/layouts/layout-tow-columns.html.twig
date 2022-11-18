@@ -7,10 +7,13 @@
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
+            
 		{% endblock %}
 
 		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.bundle.min.js" integrity="sha512-BOsvKbLb0dB1IVplOL9ptU1EYA+LuCKEluZWRUYG73hxqNBU85JBIBhPGwhQl7O633KtkjMv8lvxZcWP+N3V3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
 	<body id="" class="">
@@ -24,15 +27,23 @@
 		<main id="content" class="content">
 			<div class="container">
 				<div class="row">
-					<div class="col col-left col-xs-12 col-sm-4 col-md-3">
-                        {% block content_left %}{% endblock %}
-					</div>
-					<div class="col col-center col-xs-12 col-sm-4 col-md-3">
-                        {% block content %}{% endblock %}
-					</div>
-					<div class="col col-right col-xs-12 col-sm-4 col-md-3">
-                        {% block content_right %}{% endblock %}
-                    </div>
+					{% block content_left_container %}
+						<div class="col col-left col-xs-12 col-sm-4 col-md-3">
+							{% block content_left %}{% endblock %}
+						</div>
+					{% endblock %}
+
+					{% block content_container %}
+						<div class="col col-center col-xs-12 col-sm-4 col-md-3">
+							{% block content %}{% endblock %}
+						</div>
+					{% endblock %}
+
+					{% block content_right_container %}
+						<div class="col col-right col-xs-12 col-sm-4 col-md-3">
+							{% block content_right %}{% endblock %}
+						</div>
+					{% endblock %}
 				</div>
 			</div>
 		</main>
