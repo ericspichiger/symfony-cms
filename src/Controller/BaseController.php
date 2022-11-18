@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
-abstract class BaseController {
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+abstract class BaseController extends AbstractController {
 
 }

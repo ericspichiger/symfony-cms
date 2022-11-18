@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		{% block head %}
+			{% include "_partials/head.html.twig" %}
+		{% endblock %}
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body id="" class="">
+
+		<header id="header">
+			{% block header %}
+				{% include "_partials/header.html.twig" %}
+			{% endblock %}
+		</header>
+
+		<main id="content" class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col col-left col-xs-12 col-sm-4 col-md-3">
+                        {% block content_left %}{% endblock %}
+					</div>
+					<div class="col col-center col-xs-12 col-sm-4 col-md-3">
+                        {% block content %}{% endblock %}
+					</div>
+					<div class="col col-right col-xs-12 col-sm-4 col-md-3">
+                        {% block content_right %}{% endblock %}
+                    </div>
+				</div>
+			</div>
+		</main>
+
+		<footer id="footer" class="footer">
+			{% block footer %}
+				{% include "_partials/footer.html.twig" %}
+			{% endblock %}
+		</footer>
+	</body>
+</html>
