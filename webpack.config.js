@@ -57,7 +57,10 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader(
+        () => { },
+        { resolveUrlLoaderOptions: { removeCR: true } }
+    )
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
